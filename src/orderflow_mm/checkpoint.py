@@ -9,6 +9,7 @@ from typing import Any
 import pandas as pd
 
 from orderflow_mm.bars import build_closed_hour_dataset
+from orderflow_mm.comparison import compare_simulation_reports, write_comparison_report
 from orderflow_mm.model import (
     fit_logistic_baseline,
     fit_walk_forward_logistic,
@@ -104,6 +105,7 @@ def run_research_checkpoint(
     artifacts["models"] = model_artifacts
 
     scenario_summaries: list[dict[str, Any]] = []
+    scenario_reports: dict[tuple[str, str], dict[str, Any]] = {}
     for strategy in ("symmetric", "signal_inventory"):
         for fill_model in ("touch", "queue_aware"):
             config_name = f"{strategy}-{fill_model.replace('_', '-')}"
@@ -119,6 +121,7 @@ def run_research_checkpoint(
                 )
                 summary = {key: value for key, value in simulation.items() if key != "fill_details"}
                 write_simulation_report(summary, simulation_path)
+                scenario_reports[(strategy, fill_model)] = summary
                 scenario_summaries.append(
                     {
                         "strategy": strategy,
@@ -133,6 +136,22 @@ def run_research_checkpoint(
             except ValueError as exc:
                 warnings.append(f"simulation {config_name} skipped: {exc}")
     artifacts["simulations"] = [row["report"] for row in scenario_summaries]
+
+    comparison_artifacts: dict[str, str] = {}
+    for fill_model in ("touch", "queue_aware"):
+        baseline = scenario_reports.get(("symmetric", fill_model))
+        candidate = scenario_reports.get(("signal_inventory", fill_model))
+        if baseline is None or candidate is None:
+            warnings.append(f"comparison {fill_model} skipped: simulation report unavailable")
+            continue
+        comparison_path = checkpoint_root / f"comparison-{fill_model.replace('_', '-')}.json"
+        try:
+            comparison = compare_simulation_reports(baseline, candidate)
+            write_comparison_report(comparison, comparison_path)
+            comparison_artifacts[fill_model] = str(comparison_path)
+        except ValueError as exc:
+            warnings.append(f"comparison {fill_model} skipped: {exc}")
+    artifacts["comparisons"] = comparison_artifacts
 
     sensitivity_summary: dict[str, Any] | None = None
     if config.include_sensitivity:
@@ -153,6 +172,7 @@ def run_research_checkpoint(
         profitability_status = "requires_manual_stability_review"
 
     manifest = {
+        "schema_version": 2,
         "checkpoint_id": checkpoint_id,
         "as_of_utc": as_of.isoformat(),
         "scope": {

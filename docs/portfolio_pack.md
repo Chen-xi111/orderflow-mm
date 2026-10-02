@@ -21,6 +21,9 @@ and falsifies market-making assumptions across fees and queue-aware fill scenari
 - Developed an inventory-constrained market-making replay with optimistic touch and conservative
   queue-aware fills, decomposing fees, spread capture, adverse selection, markout, liquidation cost,
   drawdown, and hourly performance rather than presenting a best-case P&L.
+- Added paired UTC-hour bootstrap comparisons with fixed-seed confidence intervals, showing that
+  signal/inventory quoting improved relative fill economics under optimistic touch fills but
+  significantly worsened them under queue-aware assumptions.
 
 These bullets describe implemented work and remain safe after final validation because they make no
 profitability or stable-alpha claim.
@@ -50,8 +53,9 @@ profitability or stable-alpha claim.
    to clear assumed displayed depth. Results are decomposed into spread capture and adverse
    selection.
 5. **What was learned:** aggregate predictive metrics can coexist with unstable recent folds and
-   negative markout/economics. A strong research project can reject its initial profitability
-   hypothesis while demonstrating sound methodology.
+   negative markout/economics. The paired comparison reverses sign between touch and queue-aware
+   fills, so execution assumptions can dominate an apparent relative improvement. A strong research
+   project can reject its initial profitability hypothesis while demonstrating sound methodology.
 6. **Decision:** the 24-hour gate and frozen protocol are complete. Stop the current quoting
    specification; richer queue reconstruction is a separate version-2 experiment, not an attempt
    to tune away the negative result.
@@ -81,6 +85,13 @@ It is more conservative than touch, but still an approximation because top-of-bo
 reconstruct exact price-level queue priority, cancellations, or latency. Therefore it is a
 sensitivity scenario, not an execution backtest.
 
+### Why did the signal strategy improve under touch but worsen under queue-aware fills?
+
+Touch credits every reached quote and therefore overweights nominal spread opportunities. The
+queue-aware rule changes which quotes are selected for fills after displayed depth is cleared. The
+paired hourly intervals have opposite signs across those assumptions, which is evidence that the
+relative result is execution-model-sensitive, not evidence that either strategy is profitable.
+
 ### What result would count as promising?
 
 Stable out-of-sample behavior across time blocks, reasonable calibration, coefficient or mechanism
@@ -94,8 +105,8 @@ enough.
 - `quality.py` and `bars.py`: raw QA, causal features, eligibility, labels, and late-part refresh.
 - `model.py` and `diagnostics.py`: chronological baselines, walk-forward evaluation, calibration,
   and coefficient stability.
-- `simulation.py` and `sensitivity.py`: inventory-aware replay, fill assumptions, attribution, and
-  robustness grid.
+- `simulation.py`, `comparison.py`, and `sensitivity.py`: inventory-aware replay, paired hourly
+  uncertainty, fill assumptions, attribution, and robustness grid.
 - `checkpoint.py`: one-command orchestration and acceptance-state manifest.
 - `reports/research_log.md`: timestamped findings, incidents, fixes, and rejected interpretations.
 

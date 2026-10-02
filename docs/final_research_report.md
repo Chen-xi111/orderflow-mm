@@ -104,6 +104,25 @@ does not reconstruct exact queue priority, cancellations, or latency.
 Maximum absolute inventory reaches the configured 0.01 BTC limit in every scenario. Drawdowns are
 approximately as large as final losses, and adverse selection dominates spread capture.
 
+## Paired strategy uncertainty
+
+A paired nonparametric bootstrap treats each active UTC hour as one dependence block and compares
+signal/inventory quoting with symmetric quoting under otherwise identical controls. The estimand is
+mean hourly one-second fill markout after maker fees. Hours with fills in only one scenario are
+retained with zero fill economics for the other; hours with no fills in either summary are not
+reconstructible and are outside the estimand. Ten thousand resamples use a fixed seed.
+
+| Fill model | Active hours | Total candidate difference | Mean hourly difference | 95% interval | Decision |
+|---|---:|---:|---:|---:|---|
+| Touch | 107 | +425.67 | +3.978 | [2.879, 5.146] | Candidate supported relative to symmetric |
+| Queue-aware | 103 | -83.47 | -0.810 | [-1.075, -0.563] | Candidate harmed relative to symmetric |
+
+The sign reversal is the important result. Signal/inventory quoting reduces losses under optimistic
+touch fills but increases losses once displayed queue is imposed. Both strategies remain negative
+in absolute terms, and the interval excludes inventory mark-to-market, gap liquidation, and final
+liquidation. It therefore quantifies execution-assumption sensitivity; it does not establish
+profitability or executable superiority.
+
 ## Sensitivity and falsification
 
 ![Market-making sensitivity across all cases](assets/final/scenario_sensitivity.png)
@@ -144,6 +163,9 @@ uv sync --extra dev
 uv run orderflow-mm validate-checkpoint \
   --checkpoint reports/generated/checkpoints/20260905T1712Z-final/checkpoint.json \
   --report reports/generated/checkpoints/20260905T1712Z-final/final-validation.json
+uv run orderflow-mm compare-simulations \
+  --baseline reports/generated/checkpoints/20260905T1712Z-final/simulation-symmetric-queue-aware.json \
+  --candidate reports/generated/checkpoints/20260905T1712Z-final/simulation-signal_inventory-queue-aware.json
 uv run ruff format --check src tests
 uv run ruff check src tests
 uv run pytest

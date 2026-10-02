@@ -384,3 +384,20 @@ The MIT-licensed project was published at `https://github.com/SJP114/orderflow-m
 and the 572 KB frozen result bundle are public, while the 281 MB local data directory remains
 ignored. GitHub Actions run #1 completed successfully against commit `0c15c17`, reproducing the
 locked release-smoke workflow on Ubuntu.
+
+## 2026-10-02 — Paired strategy uncertainty
+
+Added a deterministic paired nonparametric bootstrap over UTC-hour attribution blocks. Comparisons
+require identical simulation controls except for strategy, align the union of hours with fills in
+either scenario, and estimate the mean difference in one-second fill markout after maker fees.
+Individual fills are not treated as independent observations. The report explicitly excludes
+inventory mark-to-market, gap/final liquidation, exact queue position, and jointly inactive hours
+from its estimand, and automatic profitability claims remain disabled.
+
+On the frozen result, signal/inventory quoting improves relative net fill economics under touch
+fills by 425.67 total, or 3.978 per active hour, with a 95% paired-bootstrap interval of
+[2.879, 5.146]. Under queue-aware fills it worsens relative economics by 83.47 total, or 0.810 per
+active hour, with an interval of [-1.075, -0.563]. Both absolute scenarios remain loss-making. The
+sign reversal is therefore evidence of execution-assumption sensitivity rather than a tradable
+edge. The CLI, schema-v2 checkpoint integration, backward-compatible validator, release smoke, and
+six new tests bring the suite to 42 passing tests.

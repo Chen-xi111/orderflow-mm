@@ -7,6 +7,9 @@
 __pycache__/
 *.py[cod]
 tmp/
+/output/
+/outputs/
+/tools/
 
 # Generated market data and reports
 data/
@@ -15,3 +18,7 @@ reports/generated/*
 reports/generated/checkpoints/*
 !reports/generated/checkpoints/20260905T1712Z-final/
 !reports/generated/checkpoints/20260905T1712Z-final/**
+!reports/generated/comparisons/
+reports/generated/comparisons/*
+!reports/generated/comparisons/20260905T1712Z-final/
+!reports/generated/comparisons/20260905T1712Z-final/**

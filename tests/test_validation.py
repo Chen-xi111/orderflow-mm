@@ -151,3 +151,16 @@ def test_write_validation_report_is_atomic(tmp_path: Path) -> None:
     write_validation_report({"passed": True}, path)
     assert json.loads(path.read_text(encoding="utf-8")) == {"passed": True}
     assert not path.with_suffix(".json.tmp").exists()
+
+
+def test_schema_v2_requires_paired_simulation_comparisons(tmp_path: Path) -> None:
+    checkpoint_path = _checkpoint_fixture(tmp_path)
+    manifest = json.loads(checkpoint_path.read_text(encoding="utf-8"))
+    manifest["schema_version"] = 2
+    _write_json(checkpoint_path, manifest)
+
+    report = validate_checkpoint(checkpoint_path)
+
+    assert report["passed"] is False
+    failed = {check["name"] for check in report["checks"] if not check["passed"]}
+    assert "simulation comparison set" in failed

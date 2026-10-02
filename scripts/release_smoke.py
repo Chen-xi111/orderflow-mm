@@ -8,7 +8,8 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-CHECKPOINT = ROOT / "reports/generated/checkpoints/20260905T1712Z-final/checkpoint.json"
+CHECKPOINT_ROOT = ROOT / "reports/generated/checkpoints/20260905T1712Z-final"
+CHECKPOINT = CHECKPOINT_ROOT / "checkpoint.json"
 
 
 def _run(*args: str) -> None:
@@ -25,6 +26,7 @@ def main() -> None:
         raw_root = temporary_root / "raw"
         bars_root = temporary_root / "bars"
         validation_report = temporary_root / "validation.json"
+        comparison_report = temporary_root / "comparison.json"
         _run(
             "-m",
             "orderflow_mm",
@@ -54,8 +56,24 @@ def main() -> None:
             "--report",
             str(validation_report),
         )
+        _run(
+            "-m",
+            "orderflow_mm",
+            "compare-simulations",
+            "--baseline",
+            str(CHECKPOINT_ROOT / "simulation-symmetric-queue-aware.json"),
+            "--candidate",
+            str(CHECKPOINT_ROOT / "simulation-signal_inventory-queue-aware.json"),
+            "--bootstrap-samples",
+            "2000",
+            "--report",
+            str(comparison_report),
+        )
 
-    print("Release smoke test passed: static checks, tests, sample pipeline, final validation.")
+    print(
+        "Release smoke test passed: static checks, tests, sample pipeline, final validation, "
+        "and paired simulation comparison."
+    )
 
 
 if __name__ == "__main__":

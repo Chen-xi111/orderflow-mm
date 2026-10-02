@@ -24,7 +24,10 @@ submission capability.
    inventory, liquidation cost, and drawdown.
 6. **Sensitivity:** vary maker fees and assumed queue ahead. A result that only works with zero fees
    or optimistic touch fills is not accepted as profitability evidence.
-7. **Final validation:** independently reconcile counts, time boundaries, embargoes, artifacts, and
+7. **Paired uncertainty:** align active UTC hours between otherwise identical strategies and use
+   deterministic paired bootstrap resampling to estimate strategy differences without treating
+   individual fills as independent observations.
+8. **Final validation:** independently reconcile counts, time boundaries, embargoes, artifacts, and
    headline claims only after the required data gate is reached.
 
 ## Automatic checkpoint contract
@@ -36,7 +39,7 @@ artifacts. The manifest records:
 - structural/freshness QA when enabled;
 - processed, invalid, and valid one-second row counts;
 - valid coverage against the default 24-hour threshold;
-- model and simulation artifact paths;
+- model, simulation, and paired comparison artifact paths;
 - scenario and sensitivity summaries;
 - skipped analyses and their reasons; and
 - an explicit profitability-claim status.
@@ -57,6 +60,10 @@ report. A stopped collector may produce a freshness warning, but raw structural 
 integrity, causal feature membership, embargoes, row counts, scenario coverage, and claim
 guardrails must still pass.
 
+Schema-v2 checkpoints additionally require touch and queue-aware paired comparison reports. Each
+report must preserve the automatic no-profit-claim guardrail and a finite confidence interval.
+Legacy schema-v1 checkpoints remain independently valid without rewriting frozen evidence.
+
 ## Final validation gates
 
 The deferred final review should verify at least the following:
@@ -73,10 +80,10 @@ The deferred final review should verify at least the following:
 - a portfolio narrative that distinguishes engineering results, research findings, and rejected
   hypotheses.
 
-## Deferred extensions
+## Completed diagnostics and deferred extensions
 
 The framework now records confidence calibration, multiclass Brier score, standardized-coefficient
-stability across walk-forward folds, and per-hour fill/fee/markout attribution. Once the valid-data
-gate is reached, the remaining extensions are richer queue assumptions and a compact final research
-report. Full-depth reconstruction and live execution remain out of scope unless separately
-authorized and designed.
+stability across walk-forward folds, per-hour fill/fee/markout attribution, and paired hourly
+bootstrap intervals for strategy comparisons. The final report and frozen evidence bundle are
+complete. Price-level depth reconstruction and live execution remain out of scope unless
+separately authorized and designed.

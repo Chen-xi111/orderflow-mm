@@ -1,6 +1,6 @@
 # Project Status, Workload, and Delivery Timeline
 
-Status date: 2026-09-11
+Status date: 2026-10-02
 Frozen checkpoint: `20260905T1712Z-final`
 Public repository: `https://github.com/SJP114/orderflow-mm`
 
@@ -11,8 +11,8 @@ Public repository: `https://github.com/SJP114/orderflow-mm`
 | Data collection and resilient storage | 15% | 100% | 18.47M raw events, reconnect/idle recovery, manifests |
 | Data QA and causal one-second bars | 15% | 100% | 24.325 valid hours, gap masking, zero duplicate seconds |
 | Prediction baselines and diagnostics | 15% | 100% | 1s/5s baseline plus 35-fold walk-forward reports |
-| Inventory-aware replay and sensitivity | 15% | 100% | Four core scenarios and 50-case grid |
-| Independent validation and tests | 10% | 100% | 29/29 checkpoint checks; 36 unit tests |
+| Inventory-aware replay and sensitivity | 15% | 100% | Four scenarios, 50-case grid, paired hourly bootstrap |
+| Independent validation and tests | 10% | 100% | 29/29 frozen checks; 42 unit tests; schema-v2 guardrails |
 | Research narrative and portfolio copy | 15% | 100% | Final report, figures, and quantified resume bullets complete |
 | Public-repository packaging | 15% | 100% | Public MIT repository, locked-env smoke, CI, sample pipeline, frozen bundle, and README pass |
 
@@ -20,8 +20,8 @@ Public repository: `https://github.com/SJP114/orderflow-mm`
 initial `main` push passed GitHub Actions on the first run. Resume insertion and interview rehearsal
 remain separate application-integration tasks rather than project-engineering blockers.
 
-Current implementation footprint: 15 source modules and 12 test modules, totaling 3,422 lines of
-source/test Python, plus 337 lines of release and figure scripts. The suite contains 36 tests,
+Current implementation footprint: 16 source modules and 13 test modules, totaling 3,788 lines of
+source/test Python, plus 355 lines of release and figure scripts. The suite contains 42 tests,
 while the frozen-checkpoint validator independently evaluates
 29 artifact, chronology, leakage, reconciliation, scenario, and claim-safety conditions.
 

@@ -44,9 +44,14 @@ uv run orderflow-mm build-bars
 uv run orderflow-mm inspect-bars
 uv run orderflow-mm train-baseline --horizon 1
 uv run orderflow-mm walk-forward --horizon 1
-uv run orderflow-mm simulate --strategy symmetric --fill-model touch
-uv run orderflow-mm simulate --strategy signal_inventory --fill-model queue_aware
+uv run orderflow-mm simulate --strategy symmetric --fill-model queue_aware \
+  --report reports/generated/simulation-symmetric-queue-aware.json
+uv run orderflow-mm simulate --strategy signal_inventory --fill-model queue_aware \
+  --report reports/generated/simulation-signal-inventory-queue-aware.json
 uv run orderflow-mm sensitivity
+uv run orderflow-mm compare-simulations \
+  --baseline reports/generated/simulation-symmetric-queue-aware.json \
+  --candidate reports/generated/simulation-signal-inventory-queue-aware.json
 uv run orderflow-mm checkpoint --skip-raw-qa --skip-sensitivity
 uv run orderflow-mm validate-checkpoint \
   --checkpoint reports/generated/checkpoints/20260905T1712Z-final/checkpoint.json
@@ -124,12 +129,26 @@ one-second markout so aggregate P&L cannot hide a small number of poor time bloc
 `sensitivity` evaluates both strategies over 0, 0.5, 1, 2, and 5 bp fees. The queue-aware
 scenario additionally varies the assumed queue ahead from 0.25× to 2× displayed top-of-book size.
 
+`compare-simulations` aligns the hourly attribution from two otherwise identical scenarios and
+uses deterministic paired UTC-hour bootstrap resampling to estimate the strategy difference in
+one-second fill markout net of maker fees. It reports a 95% interval and one of
+`candidate_supported`, `candidate_harmed`, or `inconclusive`. This is a scenario-comparison
+diagnostic, not a profitability test: inventory mark-to-market, gap/final liquidation, exact queue
+priority, and hours with no fills in either scenario remain outside the estimand.
+
+On the frozen sample, signal/inventory quoting improves net fill economics under optimistic touch
+fills but worsens it under queue-aware fills. The opposing conclusions quantify execution-model
+sensitivity and strengthen the decision not to claim a tradable edge. Versioned comparison reports
+are available under
+[`reports/generated/comparisons/20260905T1712Z-final/`](reports/generated/comparisons/20260905T1712Z-final/).
+
 ## Research checkpoints
 
 `checkpoint` provides the reproducible orchestration layer for later milestones. It refreshes
 closed-hour bars, records valid coverage against the 24-hour gate, runs both single-segment and
 walk-forward Logistic evaluations, saves all four 1 bp simulation scenarios, optionally runs the
-50-case sensitivity grid, and writes a single `checkpoint.json` manifest linking every artifact.
+50-case sensitivity grid, produces paired strategy-comparison intervals for both fill models, and
+writes a single `checkpoint.json` manifest linking every artifact.
 
 The manifest can move from `collecting` to `ready_for_final_validation`, but it never automatically
 claims a profitable strategy. Any positive conservative scenario is labeled for manual stability

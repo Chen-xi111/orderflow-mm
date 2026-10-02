@@ -1,0 +1,695 @@
+{
+  "schema_version": 1,
+  "method": {
+    "name": "paired_nonparametric_utc_hour_bootstrap",
+    "bootstrap_samples": 10000,
+    "confidence_level": 0.95,
+    "seed": 0,
+    "estimand": "mean hourly net one-second fill markout after maker fees",
+    "hour_population": "UTC hours with fills in at least one compared scenario"
+  },
+  "comparison": {
+    "baseline_strategy": "symmetric",
+    "candidate_strategy": "signal_inventory",
+    "fill_model": "touch",
+    "maker_fee_bps": 1.0,
+    "start": "2026-08-28T04:14:17+00:00",
+    "end": "2026-09-05T16:54:22+00:00"
+  },
+  "hours": 107,
+  "hours_candidate_better": 107,
+  "hours_candidate_worse": 0,
+  "hours_tied": 0,
+  "baseline": {
+    "total_net_fill_economics": -1086.2954963760837,
+    "mean_hourly_net_fill_economics": -10.152294358654988,
+    "median_hourly_net_fill_economics": -1.2709464290001566
+  },
+  "candidate": {
+    "total_net_fill_economics": -660.6270788262952,
+    "mean_hourly_net_fill_economics": -6.174084848843881,
+    "median_hourly_net_fill_economics": -0.7230271110004564
+  },
+  "difference": {
+    "total_net_fill_economics": 425.6684175497884,
+    "mean_hourly_net_fill_economics": 3.9782095098111063,
+    "confidence_interval": [
+      2.8791645289347287,
+      5.146131257468393
+    ],
+    "bootstrap_probability_candidate_better": 1.0
+  },
+  "decision": "candidate_supported",
+  "automatic_profitability_claims_are_disabled": true,
+  "limitations": [
+    "The interval describes scenario differences, not executable trading returns.",
+    "Top-of-book data cannot reconstruct price-level queue position.",
+    "Net fill economics exclude inventory mark-to-market, gap liquidation, and final liquidation.",
+    "Hours with no fills in either scenario are absent from summary-report attribution.",
+    "Resampling UTC-hour blocks does not remove regime-selection or model-selection risk."
+  ],
+  "hourly_differences": [
+    {
+      "hour_utc": "2026-08-28T04:00:00+00:00",
+      "baseline_net_fill_economics": -0.058053564000022706,
+      "candidate_net_fill_economics": -0.023937240000029687,
+      "difference": 0.03411632399999302
+    },
+    {
+      "hour_utc": "2026-08-28T06:00:00+00:00",
+      "baseline_net_fill_economics": -14.006148235000254,
+      "candidate_net_fill_economics": -7.870977690004594,
+      "difference": 6.13517054499566
+    },
+    {
+      "hour_utc": "2026-08-28T07:00:00+00:00",
+      "baseline_net_fill_economics": -39.18411590300321,
+      "candidate_net_fill_economics": -22.332612794011112,
+      "difference": 16.851503108992098
+    },
+    {
+      "hour_utc": "2026-08-28T08:00:00+00:00",
+      "baseline_net_fill_economics": -38.10779725400315,
+      "candidate_net_fill_economics": -22.099157707010825,
+      "difference": 16.008639546992327
+    },
+    {
+      "hour_utc": "2026-08-28T09:00:00+00:00",
+      "baseline_net_fill_economics": -45.78165827300356,
+      "candidate_net_fill_economics": -26.079381916013237,
+      "difference": 19.70227635699032
+    },
+    {
+      "hour_utc": "2026-08-28T10:00:00+00:00",
+      "baseline_net_fill_economics": -40.691476139003726,
+      "candidate_net_fill_economics": -23.541594121011364,
+      "difference": 17.14988201799236
+    },
+    {
+      "hour_utc": "2026-08-28T11:00:00+00:00",
+      "baseline_net_fill_economics": -0.7324356769999802,
+      "candidate_net_fill_economics": -0.3889565850002439,
+      "difference": 0.34347909199973636
+    },
+    {
+      "hour_utc": "2026-08-28T12:00:00+00:00",
+      "baseline_net_fill_economics": -0.17647874000003608,
+      "candidate_net_fill_economics": -0.10115174300006345,
+      "difference": 0.07532699699997263
+    },
+    {
+      "hour_utc": "2026-08-28T13:00:00+00:00",
+      "baseline_net_fill_economics": -32.428735006003464,
+      "candidate_net_fill_economics": -20.195336596008353,
+      "difference": 12.233398409995111
+    },
+    {
+      "hour_utc": "2026-08-28T14:00:00+00:00",
+      "baseline_net_fill_economics": -35.788226422002296,
+      "candidate_net_fill_economics": -27.799168354007623,
+      "difference": 7.989058067994673
+    },
+    {
+      "hour_utc": "2026-08-28T15:00:00+00:00",
+      "baseline_net_fill_economics": -48.8296124890037,
+      "candidate_net_fill_economics": -32.21997741301254,
+      "difference": 16.609635075991157
+    },
+    {
+      "hour_utc": "2026-08-28T16:00:00+00:00",
+      "baseline_net_fill_economics": -32.624570168001085,
+      "candidate_net_fill_economics": -27.53110383400703,
+      "difference": 5.093466333994055
+    },
+    {
+      "hour_utc": "2026-08-28T17:00:00+00:00",
+      "baseline_net_fill_economics": -1.445138346000121,
+      "candidate_net_fill_economics": -0.9392837550003469,
+      "difference": 0.5058545909997741
+    },
+    {
+      "hour_utc": "2026-08-28T18:00:00+00:00",
+      "baseline_net_fill_economics": -0.8886133690001409,
+      "candidate_net_fill_economics": -0.5388819870002619,
+      "difference": 0.34973138199987897
+    },
+    {
+      "hour_utc": "2026-08-28T19:00:00+00:00",
+      "baseline_net_fill_economics": -1.0659755020000785,
+      "candidate_net_fill_economics": -0.5918861120002398,
+      "difference": 0.47408938999983874
+    },
+    {
+      "hour_utc": "2026-08-28T20:00:00+00:00",
+      "baseline_net_fill_economics": -1.0285715380001037,
+      "candidate_net_fill_economics": -0.5040322290002375,
+      "difference": 0.5245393089998662
+    },
+    {
+      "hour_utc": "2026-08-28T21:00:00+00:00",
+      "baseline_net_fill_economics": -1.0528617990000162,
+      "candidate_net_fill_economics": -0.5601366530002445,
+      "difference": 0.4927251459997717
+    },
+    {
+      "hour_utc": "2026-08-28T22:00:00+00:00",
+      "baseline_net_fill_economics": -1.0725478770001269,
+      "candidate_net_fill_economics": -0.5165522190002002,
+      "difference": 0.5559956579999267
+    },
+    {
+      "hour_utc": "2026-08-29T14:00:00+00:00",
+      "baseline_net_fill_economics": -44.24343182400493,
+      "candidate_net_fill_economics": -24.69300314001209,
+      "difference": 19.550428683992838
+    },
+    {
+      "hour_utc": "2026-08-29T15:00:00+00:00",
+      "baseline_net_fill_economics": -20.2834084480033,
+      "candidate_net_fill_economics": -11.053762165004967,
+      "difference": 9.229646282998333
+    },
+    {
+      "hour_utc": "2026-08-29T23:00:00+00:00",
+      "baseline_net_fill_economics": -0.023460659000015135,
+      "candidate_net_fill_economics": -0.01564044000001979,
+      "difference": 0.007820218999995344
+    },
+    {
+      "hour_utc": "2026-08-30T00:00:00+00:00",
+      "baseline_net_fill_economics": -10.278950457000871,
+      "candidate_net_fill_economics": -6.027506726003357,
+      "difference": 4.251443730997514
+    },
+    {
+      "hour_utc": "2026-08-30T02:00:00+00:00",
+      "baseline_net_fill_economics": -1.1674127650003365,
+      "candidate_net_fill_economics": -0.6714040950002479,
+      "difference": 0.49600867000008864
+    },
+    {
+      "hour_utc": "2026-08-30T03:00:00+00:00",
+      "baseline_net_fill_economics": -24.454855659001915,
+      "candidate_net_fill_economics": -13.564371352007823,
+      "difference": 10.890484306994091
+    },
+    {
+      "hour_utc": "2026-08-30T07:00:00+00:00",
+      "baseline_net_fill_economics": -4.980443026000151,
+      "candidate_net_fill_economics": -2.5651947090015113,
+      "difference": 2.4152483169986394
+    },
+    {
+      "hour_utc": "2026-08-30T08:00:00+00:00",
+      "baseline_net_fill_economics": -9.658255363999585,
+      "candidate_net_fill_economics": -5.169034821003684,
+      "difference": 4.489220542995901
+    },
+    {
+      "hour_utc": "2026-08-30T10:00:00+00:00",
+      "baseline_net_fill_economics": -26.132198407005134,
+      "candidate_net_fill_economics": -14.084643978006152,
+      "difference": 12.047554428998982
+    },
+    {
+      "hour_utc": "2026-08-30T11:00:00+00:00",
+      "baseline_net_fill_economics": -2.2096583850007563,
+      "candidate_net_fill_economics": -1.1611992680003063,
+      "difference": 1.04845911700045
+    },
+    {
+      "hour_utc": "2026-08-30T12:00:00+00:00",
+      "baseline_net_fill_economics": -36.48410164200157,
+      "candidate_net_fill_economics": -21.50702176401061,
+      "difference": 14.97707987799096
+    },
+    {
+      "hour_utc": "2026-08-30T13:00:00+00:00",
+      "baseline_net_fill_economics": -45.793419133000974,
+      "candidate_net_fill_economics": -25.787353541014312,
+      "difference": 20.006065591986662
+    },
+    {
+      "hour_utc": "2026-08-30T14:00:00+00:00",
+      "baseline_net_fill_economics": -33.368601601001046,
+      "candidate_net_fill_economics": -18.58361160201075,
+      "difference": 14.784989998990298
+    },
+    {
+      "hour_utc": "2026-08-30T15:00:00+00:00",
+      "baseline_net_fill_economics": -1.835191316999946,
+      "candidate_net_fill_economics": -0.9776220980006002,
+      "difference": 0.8575692189993459
+    },
+    {
+      "hour_utc": "2026-08-30T16:00:00+00:00",
+      "baseline_net_fill_economics": -1.3888520370001387,
+      "candidate_net_fill_economics": -0.8293467160003616,
+      "difference": 0.5595053209997771
+    },
+    {
+      "hour_utc": "2026-08-30T17:00:00+00:00",
+      "baseline_net_fill_economics": -1.417278390000029,
+      "candidate_net_fill_economics": -0.8578303980003877,
+      "difference": 0.5594479919996412
+    },
+    {
+      "hour_utc": "2026-08-30T18:00:00+00:00",
+      "baseline_net_fill_economics": -1.1023882210002662,
+      "candidate_net_fill_economics": -0.5405178200002614,
+      "difference": 0.5618704010000048
+    },
+    {
+      "hour_utc": "2026-08-30T19:00:00+00:00",
+      "baseline_net_fill_economics": -0.9028831240002219,
+      "candidate_net_fill_economics": -0.48567789400018335,
+      "difference": 0.4172052300000385
+    },
+    {
+      "hour_utc": "2026-08-30T20:00:00+00:00",
+      "baseline_net_fill_economics": -0.9971897030002101,
+      "candidate_net_fill_economics": -0.4788973240001776,
+      "difference": 0.5182923790000326
+    },
+    {
+      "hour_utc": "2026-08-30T21:00:00+00:00",
+      "baseline_net_fill_economics": -0.8144995039998428,
+      "candidate_net_fill_economics": -0.38181558600028814,
+      "difference": 0.4326839179995547
+    },
+    {
+      "hour_utc": "2026-08-30T22:00:00+00:00",
+      "baseline_net_fill_economics": -0.9521307360001217,
+      "candidate_net_fill_economics": -0.5155245980002998,
+      "difference": 0.43660613799982184
+    },
+    {
+      "hour_utc": "2026-08-30T23:00:00+00:00",
+      "baseline_net_fill_economics": -4.991149592000495,
+      "candidate_net_fill_economics": -3.5256396750014063,
+      "difference": 1.4655099169990886
+    },
+    {
+      "hour_utc": "2026-08-31T00:00:00+00:00",
+      "baseline_net_fill_economics": -29.63170150300259,
+      "candidate_net_fill_economics": -19.04094027500865,
+      "difference": 10.590761227993937
+    },
+    {
+      "hour_utc": "2026-08-31T12:00:00+00:00",
+      "baseline_net_fill_economics": -8.860929153001605,
+      "candidate_net_fill_economics": -5.162017508001998,
+      "difference": 3.6989116449996065
+    },
+    {
+      "hour_utc": "2026-08-31T13:00:00+00:00",
+      "baseline_net_fill_economics": -32.35754567100247,
+      "candidate_net_fill_economics": -20.245376023009115,
+      "difference": 12.112169647993355
+    },
+    {
+      "hour_utc": "2026-08-31T14:00:00+00:00",
+      "baseline_net_fill_economics": -0.5530110570000186,
+      "candidate_net_fill_economics": -0.4358828210000862,
+      "difference": 0.11712823599993244
+    },
+    {
+      "hour_utc": "2026-08-31T15:00:00+00:00",
+      "baseline_net_fill_economics": -1.036929364000213,
+      "candidate_net_fill_economics": -0.6260309190001618,
+      "difference": 0.41089844500005124
+    },
+    {
+      "hour_utc": "2026-08-31T16:00:00+00:00",
+      "baseline_net_fill_economics": -0.48742184300013447,
+      "candidate_net_fill_economics": -0.2533473970001176,
+      "difference": 0.23407444600001687
+    },
+    {
+      "hour_utc": "2026-08-31T17:00:00+00:00",
+      "baseline_net_fill_economics": -0.27348578500006926,
+      "candidate_net_fill_economics": -0.16539018000009315,
+      "difference": 0.10809560499997611
+    },
+    {
+      "hour_utc": "2026-08-31T18:00:00+00:00",
+      "baseline_net_fill_economics": -0.3567032350001252,
+      "candidate_net_fill_economics": -0.2063228240000448,
+      "difference": 0.15038041100008037
+    },
+    {
+      "hour_utc": "2026-08-31T20:00:00+00:00",
+      "baseline_net_fill_economics": -0.2129365150000384,
+      "candidate_net_fill_economics": -0.08674376400005064,
+      "difference": 0.12619275099998778
+    },
+    {
+      "hour_utc": "2026-08-31T21:00:00+00:00",
+      "baseline_net_fill_economics": -0.2616549270000396,
+      "candidate_net_fill_economics": -0.13413785600003725,
+      "difference": 0.12751707100000237
+    },
+    {
+      "hour_utc": "2026-08-31T22:00:00+00:00",
+      "baseline_net_fill_economics": -0.471298851000053,
+      "candidate_net_fill_economics": -0.23654821400007567,
+      "difference": 0.2347506369999773
+    },
+    {
+      "hour_utc": "2026-08-31T23:00:00+00:00",
+      "baseline_net_fill_economics": -0.6059702859999033,
+      "candidate_net_fill_economics": -0.27277742600019095,
+      "difference": 0.3331928599997124
+    },
+    {
+      "hour_utc": "2026-09-01T00:00:00+00:00",
+      "baseline_net_fill_economics": -0.557560327000021,
+      "candidate_net_fill_economics": -0.30279955700018746,
+      "difference": 0.25476076999983355
+    },
+    {
+      "hour_utc": "2026-09-01T23:00:00+00:00",
+      "baseline_net_fill_economics": -1.583285691999846,
+      "candidate_net_fill_economics": -0.7541995580004843,
+      "difference": 0.8290861339993616
+    },
+    {
+      "hour_utc": "2026-09-02T00:00:00+00:00",
+      "baseline_net_fill_economics": -0.5116974830000681,
+      "candidate_net_fill_economics": -0.24333328000011117,
+      "difference": 0.26836420299995695
+    },
+    {
+      "hour_utc": "2026-09-02T01:00:00+00:00",
+      "baseline_net_fill_economics": -1.1685469040001344,
+      "candidate_net_fill_economics": -0.651795511000287,
+      "difference": 0.5167513929998474
+    },
+    {
+      "hour_utc": "2026-09-02T02:00:00+00:00",
+      "baseline_net_fill_economics": -0.7479643229999849,
+      "candidate_net_fill_economics": -0.3463478220001717,
+      "difference": 0.4016165009998132
+    },
+    {
+      "hour_utc": "2026-09-02T03:00:00+00:00",
+      "baseline_net_fill_economics": -0.9748486249999523,
+      "candidate_net_fill_economics": -0.5315637340002136,
+      "difference": 0.44328489099973867
+    },
+    {
+      "hour_utc": "2026-09-02T04:00:00+00:00",
+      "baseline_net_fill_economics": -0.9442668110000978,
+      "candidate_net_fill_economics": -0.4316869100002072,
+      "difference": 0.5125799009998906
+    },
+    {
+      "hour_utc": "2026-09-02T05:00:00+00:00",
+      "baseline_net_fill_economics": -1.0022786600000804,
+      "candidate_net_fill_economics": -0.5041387070003132,
+      "difference": 0.4981399529997672
+    },
+    {
+      "hour_utc": "2026-09-02T06:00:00+00:00",
+      "baseline_net_fill_economics": -1.1812779570001384,
+      "candidate_net_fill_economics": -0.6379570110002748,
+      "difference": 0.5433209459998636
+    },
+    {
+      "hour_utc": "2026-09-02T07:00:00+00:00",
+      "baseline_net_fill_economics": -1.1957261490002218,
+      "candidate_net_fill_economics": -0.668778311000291,
+      "difference": 0.5269478379999308
+    },
+    {
+      "hour_utc": "2026-09-02T08:00:00+00:00",
+      "baseline_net_fill_economics": -1.0036336780002124,
+      "candidate_net_fill_economics": -0.597832528000323,
+      "difference": 0.40580114999988937
+    },
+    {
+      "hour_utc": "2026-09-02T09:00:00+00:00",
+      "baseline_net_fill_economics": -1.207437305000167,
+      "candidate_net_fill_economics": -0.6882328720002957,
+      "difference": 0.5192044329998713
+    },
+    {
+      "hour_utc": "2026-09-02T10:00:00+00:00",
+      "baseline_net_fill_economics": -1.2025918250000722,
+      "candidate_net_fill_economics": -0.6532809520003592,
+      "difference": 0.549310872999713
+    },
+    {
+      "hour_utc": "2026-09-02T11:00:00+00:00",
+      "baseline_net_fill_economics": -1.1690933160000299,
+      "candidate_net_fill_economics": -0.6144950550003393,
+      "difference": 0.5545982609996906
+    },
+    {
+      "hour_utc": "2026-09-02T12:00:00+00:00",
+      "baseline_net_fill_economics": -1.0568946000001844,
+      "candidate_net_fill_economics": -0.5579053680002811,
+      "difference": 0.4989892319999033
+    },
+    {
+      "hour_utc": "2026-09-02T13:00:00+00:00",
+      "baseline_net_fill_economics": -1.2709464290001566,
+      "candidate_net_fill_economics": -0.860079293000287,
+      "difference": 0.4108671359998697
+    },
+    {
+      "hour_utc": "2026-09-02T14:00:00+00:00",
+      "baseline_net_fill_economics": -1.4292488100001477,
+      "candidate_net_fill_economics": -0.8440437210003405,
+      "difference": 0.5852050889998072
+    },
+    {
+      "hour_utc": "2026-09-02T15:00:00+00:00",
+      "baseline_net_fill_economics": -0.9356609210000746,
+      "candidate_net_fill_economics": -0.5171911420002684,
+      "difference": 0.4184697789998062
+    },
+    {
+      "hour_utc": "2026-09-02T16:00:00+00:00",
+      "baseline_net_fill_economics": -1.1016589009999318,
+      "candidate_net_fill_economics": -0.579999985000383,
+      "difference": 0.5216589159995488
+    },
+    {
+      "hour_utc": "2026-09-02T17:00:00+00:00",
+      "baseline_net_fill_economics": -0.7388684069999052,
+      "candidate_net_fill_economics": -0.4151947660003621,
+      "difference": 0.3236736409995431
+    },
+    {
+      "hour_utc": "2026-09-02T18:00:00+00:00",
+      "baseline_net_fill_economics": -0.8982978530002649,
+      "candidate_net_fill_economics": -0.43576021200004944,
+      "difference": 0.46253764100021544
+    },
+    {
+      "hour_utc": "2026-09-02T19:00:00+00:00",
+      "baseline_net_fill_economics": -0.8595545930002869,
+      "candidate_net_fill_economics": -0.46122622000009084,
+      "difference": 0.3983283730001961
+    },
+    {
+      "hour_utc": "2026-09-02T20:00:00+00:00",
+      "baseline_net_fill_economics": -0.7489042220001816,
+      "candidate_net_fill_economics": -0.41889683000018807,
+      "difference": 0.3300073919999935
+    },
+    {
+      "hour_utc": "2026-09-02T21:00:00+00:00",
+      "baseline_net_fill_economics": -0.9219588219999209,
+      "candidate_net_fill_economics": -0.4154588060002544,
+      "difference": 0.5065000159996664
+    },
+    {
+      "hour_utc": "2026-09-02T22:00:00+00:00",
+      "baseline_net_fill_economics": -0.6986926109999942,
+      "candidate_net_fill_economics": -0.3820685780003021,
+      "difference": 0.31662403299969216
+    },
+    {
+      "hour_utc": "2026-09-02T23:00:00+00:00",
+      "baseline_net_fill_economics": -1.071912514999843,
+      "candidate_net_fill_economics": -0.5630292890004192,
+      "difference": 0.5088832259994238
+    },
+    {
+      "hour_utc": "2026-09-03T00:00:00+00:00",
+      "baseline_net_fill_economics": -0.9307799499999052,
+      "candidate_net_fill_economics": -0.5293166360003452,
+      "difference": 0.40146331399956003
+    },
+    {
+      "hour_utc": "2026-09-03T15:00:00+00:00",
+      "baseline_net_fill_economics": -24.752169335000755,
+      "candidate_net_fill_economics": -16.938089091006344,
+      "difference": 7.814080243994411
+    },
+    {
+      "hour_utc": "2026-09-03T16:00:00+00:00",
+      "baseline_net_fill_economics": -1.7413637160002404,
+      "candidate_net_fill_economics": -1.120031735000412,
+      "difference": 0.6213319809998283
+    },
+    {
+      "hour_utc": "2026-09-03T17:00:00+00:00",
+      "baseline_net_fill_economics": -1.4708009500001962,
+      "candidate_net_fill_economics": -0.8163688210002328,
+      "difference": 0.6544321289999634
+    },
+    {
+      "hour_utc": "2026-09-03T18:00:00+00:00",
+      "baseline_net_fill_economics": -1.3304891879999734,
+      "candidate_net_fill_economics": -0.7596812150003778,
+      "difference": 0.5708079729995956
+    },
+    {
+      "hour_utc": "2026-09-03T19:00:00+00:00",
+      "baseline_net_fill_economics": -1.6654877340001943,
+      "candidate_net_fill_economics": -0.985902255000471,
+      "difference": 0.6795854789997233
+    },
+    {
+      "hour_utc": "2026-09-03T20:00:00+00:00",
+      "baseline_net_fill_economics": -1.3402403689998952,
+      "candidate_net_fill_economics": -0.7230271110004564,
+      "difference": 0.6172132579994388
+    },
+    {
+      "hour_utc": "2026-09-03T21:00:00+00:00",
+      "baseline_net_fill_economics": -1.7394224290002847,
+      "candidate_net_fill_economics": -0.9445630100003423,
+      "difference": 0.7948594189999424
+    },
+    {
+      "hour_utc": "2026-09-03T22:00:00+00:00",
+      "baseline_net_fill_economics": -0.9908043560001873,
+      "candidate_net_fill_economics": -0.534564609000205,
+      "difference": 0.4562397469999824
+    },
+    {
+      "hour_utc": "2026-09-03T23:00:00+00:00",
+      "baseline_net_fill_economics": -1.7758777060001292,
+      "candidate_net_fill_economics": -0.9656277020003143,
+      "difference": 0.8102500039998148
+    },
+    {
+      "hour_utc": "2026-09-04T00:00:00+00:00",
+      "baseline_net_fill_economics": -2.959285882000325,
+      "candidate_net_fill_economics": -1.5443116100007828,
+      "difference": 1.4149742719995424
+    },
+    {
+      "hour_utc": "2026-09-04T02:00:00+00:00",
+      "baseline_net_fill_economics": -13.156203395999567,
+      "candidate_net_fill_economics": -7.102020152004191,
+      "difference": 6.054183243995376
+    },
+    {
+      "hour_utc": "2026-09-04T04:00:00+00:00",
+      "baseline_net_fill_economics": -4.341848612000342,
+      "candidate_net_fill_economics": -2.3244593060011445,
+      "difference": 2.017389305999197
+    },
+    {
+      "hour_utc": "2026-09-04T05:00:00+00:00",
+      "baseline_net_fill_economics": -26.119075448001148,
+      "candidate_net_fill_economics": -15.116366097007777,
+      "difference": 11.00270935099337
+    },
+    {
+      "hour_utc": "2026-09-04T06:00:00+00:00",
+      "baseline_net_fill_economics": -10.60088509000139,
+      "candidate_net_fill_economics": -6.030885082002576,
+      "difference": 4.5700000079988135
+    },
+    {
+      "hour_utc": "2026-09-04T12:00:00+00:00",
+      "baseline_net_fill_economics": -26.417870661001132,
+      "candidate_net_fill_economics": -22.351523644005553,
+      "difference": 4.066347016995579
+    },
+    {
+      "hour_utc": "2026-09-04T13:00:00+00:00",
+      "baseline_net_fill_economics": -22.5359697360019,
+      "candidate_net_fill_economics": -16.14640109300558,
+      "difference": 6.38956864299632
+    },
+    {
+      "hour_utc": "2026-09-04T14:00:00+00:00",
+      "baseline_net_fill_economics": -50.19338150900268,
+      "candidate_net_fill_economics": -35.928806458011984,
+      "difference": 14.264575050990693
+    },
+    {
+      "hour_utc": "2026-09-04T15:00:00+00:00",
+      "baseline_net_fill_economics": -47.29632578100503,
+      "candidate_net_fill_economics": -27.7519564840117,
+      "difference": 19.54436929699333
+    },
+    {
+      "hour_utc": "2026-09-04T16:00:00+00:00",
+      "baseline_net_fill_economics": -21.353456492000777,
+      "candidate_net_fill_economics": -12.061142632006533,
+      "difference": 9.292313859994245
+    },
+    {
+      "hour_utc": "2026-09-04T17:00:00+00:00",
+      "baseline_net_fill_economics": -0.21085681500000295,
+      "candidate_net_fill_economics": -0.12106008800006635,
+      "difference": 0.0897967269999366
+    },
+    {
+      "hour_utc": "2026-09-04T18:00:00+00:00",
+      "baseline_net_fill_economics": -0.1434422000000396,
+      "candidate_net_fill_economics": -0.06192987100007159,
+      "difference": 0.081512328999968
+    },
+    {
+      "hour_utc": "2026-09-04T22:00:00+00:00",
+      "baseline_net_fill_economics": -0.11943521500007567,
+      "candidate_net_fill_economics": -0.03981173499997672,
+      "difference": 0.07962348000009895
+    },
+    {
+      "hour_utc": "2026-09-05T11:00:00+00:00",
+      "baseline_net_fill_economics": -6.325482959001625,
+      "candidate_net_fill_economics": -3.264882476001104,
+      "difference": 3.060600483000521
+    },
+    {
+      "hour_utc": "2026-09-05T12:00:00+00:00",
+      "baseline_net_fill_economics": -41.00808854000179,
+      "candidate_net_fill_economics": -22.53770149501302,
+      "difference": 18.470387044988772
+    },
+    {
+      "hour_utc": "2026-09-05T13:00:00+00:00",
+      "baseline_net_fill_economics": -44.52472602400358,
+      "candidate_net_fill_economics": -24.421602176012872,
+      "difference": 20.103123847990705
+    },
+    {
+      "hour_utc": "2026-09-05T14:00:00+00:00",
+      "baseline_net_fill_economics": -18.63983198700389,
+      "candidate_net_fill_economics": -9.783331198004062,
+      "difference": 8.85650078899983
+    },
+    {
+      "hour_utc": "2026-09-05T15:00:00+00:00",
+      "baseline_net_fill_economics": -1.7557532250002752,
+      "candidate_net_fill_economics": -0.8923053620004814,
+      "difference": 0.8634478629997938
+    },
+    {
+      "hour_utc": "2026-09-05T16:00:00+00:00",
+      "baseline_net_fill_economics": -1.1209688470002848,
+      "candidate_net_fill_economics": -0.575849799000255,
+      "difference": 0.5451190480000297
+    }
+  ]
+}

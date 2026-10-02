@@ -10,6 +10,11 @@ from pathlib import Path
 from orderflow_mm.bars import build_closed_hour_dataset
 from orderflow_mm.checkpoint import CheckpointConfig, run_research_checkpoint
 from orderflow_mm.collector import MarketDataCollector
+from orderflow_mm.comparison import (
+    compare_simulation_reports,
+    load_simulation_report,
+    write_comparison_report,
+)
 from orderflow_mm.model import (
     fit_logistic_baseline,
     fit_walk_forward_logistic,
@@ -111,6 +116,19 @@ def build_parser() -> argparse.ArgumentParser:
     sensitivity.add_argument("--input", type=Path, default=Path("data/processed/bars_1s"))
     sensitivity.add_argument(
         "--output", type=Path, default=Path("reports/generated/sensitivity.csv")
+    )
+
+    comparison = subparsers.add_parser(
+        "compare-simulations",
+        help="compare two simulation reports with paired UTC-hour bootstrap resampling",
+    )
+    comparison.add_argument("--baseline", type=Path, required=True)
+    comparison.add_argument("--candidate", type=Path, required=True)
+    comparison.add_argument("--bootstrap-samples", type=int, default=10_000)
+    comparison.add_argument("--confidence-level", type=float, default=0.95)
+    comparison.add_argument("--seed", type=int, default=0)
+    comparison.add_argument(
+        "--report", type=Path, default=Path("reports/generated/simulation-comparison.json")
     )
 
     checkpoint = subparsers.add_parser(
@@ -221,6 +239,28 @@ def main() -> None:
         sensitivity_frame = run_sensitivity_grid(frame)
         write_sensitivity_csv(sensitivity_frame, args.output)
         print(json.dumps({"rows": len(sensitivity_frame), "output": str(args.output)}, indent=2))
+        return
+
+    if args.command == "compare-simulations":
+        report = compare_simulation_reports(
+            load_simulation_report(args.baseline),
+            load_simulation_report(args.candidate),
+            bootstrap_samples=args.bootstrap_samples,
+            confidence_level=args.confidence_level,
+            seed=args.seed,
+        )
+        write_comparison_report(report, args.report)
+        print(
+            json.dumps(
+                {
+                    "report": str(args.report),
+                    "hours": report["hours"],
+                    "decision": report["decision"],
+                    "difference": report["difference"],
+                },
+                indent=2,
+            )
+        )
         return
 
     if args.command == "checkpoint":

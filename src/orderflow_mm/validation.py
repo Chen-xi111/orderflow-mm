@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import csv
 import json
+import math
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -139,6 +140,44 @@ def validate_checkpoint(checkpoint_path: Path) -> dict[str, Any]:
             path.is_file(),
             str(path),
         )
+
+    schema_version = int(manifest.get("schema_version", 1))
+    if schema_version >= 2:
+        comparisons = artifacts.get("comparisons", {})
+        expected_comparisons = {"touch", "queue_aware"}
+        record(
+            "simulation comparison set",
+            isinstance(comparisons, dict) and set(comparisons) == expected_comparisons,
+            f"found comparisons: {sorted(comparisons) if isinstance(comparisons, dict) else []}",
+        )
+        if isinstance(comparisons, dict):
+            for fill_model in sorted(expected_comparisons & set(comparisons)):
+                path = _resolve_artifact(checkpoint_path, comparisons[fill_model])
+                exists = path.is_file()
+                record(f"comparison artifact: {fill_model}", exists, str(path))
+                if not exists:
+                    continue
+                comparison = json.loads(path.read_text(encoding="utf-8"))
+                interval = comparison.get("difference", {}).get("confidence_interval", [])
+                interval_valid = (
+                    isinstance(interval, list)
+                    and len(interval) == 2
+                    and all(
+                        isinstance(value, int | float) and math.isfinite(value)
+                        for value in interval
+                    )
+                    and interval[0] <= interval[1]
+                )
+                record(
+                    f"comparison guardrails: {fill_model}",
+                    comparison.get("comparison", {}).get("fill_model") == fill_model
+                    and int(comparison.get("hours", 0)) >= 2
+                    and comparison.get("decision")
+                    in {"candidate_supported", "candidate_harmed", "inconclusive"}
+                    and comparison.get("automatic_profitability_claims_are_disabled") is True
+                    and interval_valid,
+                    "paired hourly interval and no-profit-claim guardrail must be present",
+                )
 
     sensitivity_summary = manifest.get("sensitivity_summary") or {}
     sensitivity_path = _resolve_artifact(checkpoint_path, artifacts.get("sensitivity", ""))
