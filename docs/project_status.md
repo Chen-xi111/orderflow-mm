@@ -1,8 +1,8 @@
 # Project Status, Workload, and Delivery Timeline
 
-Status date: 2026-10-02
+Status date: 2026-11-12
 Frozen checkpoint: `20260905T1712Z-final`
-Public repository: `https://github.com/SJP114/orderflow-mm`
+Public repository: `https://github.com/Chen-xi111/orderflow-mm`
 
 ## Current completion
 
@@ -57,7 +57,7 @@ implementation time.
 
 ### Completed — remote release
 
-- Published the MIT-licensed repository under `SJP114/orderflow-mm`.
+- Published the MIT-licensed repository under `Chen-xi111/orderflow-mm`.
 - Confirmed the locked release-smoke workflow passes on GitHub Actions.
 
 ### Session 2 — application integration (1–2 hours)

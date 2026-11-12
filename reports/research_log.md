@@ -401,3 +401,10 @@ active hour, with an interval of [-1.075, -0.563]. Both absolute scenarios remai
 sign reversal is therefore evidence of execution-assumption sensitivity rather than a tradable
 edge. The CLI, schema-v2 checkpoint integration, backward-compatible validator, release smoke, and
 six new tests bring the suite to 42 passing tests.
+
+## 2026-11-12 — GitHub account migration
+
+The complete repository history and release tags were migrated to
+`https://github.com/Chen-xi111/orderflow-mm`. Repository-facing CI links now use the new canonical
+location. The previous `SJP114/orderflow-mm` remote is retained as a historical backup; it is no
+longer the default push target. No research data, results, or claims changed during the migration.
