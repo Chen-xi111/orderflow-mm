@@ -4,12 +4,24 @@
 .ruff_cache/
 .uv-cache/
 .tools/
+.codex_tmp/
+.tmp/
+.tmp_artifact_runtime/
 __pycache__/
 *.py[cod]
 tmp/
 /output/
 /outputs/
 /tools/
+/academy_preparation/
+/jane_street_quant_interview_handoff.md
+/node_modules
+/scripts/build_qt_resume.py
+/scripts/build_tutor_resume.py
+/scripts/inspect_quant_tracker.mjs
+/scripts/inspect_quant_tracker_structure.mjs
+/scripts/node_modules
+/scripts/update_quant_tracker_*.mjs
 
 # Generated market data and reports
 data/

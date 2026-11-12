@@ -10,6 +10,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CHECKPOINT_ROOT = ROOT / "reports/generated/checkpoints/20260905T1712Z-final"
 CHECKPOINT = CHECKPOINT_ROOT / "checkpoint.json"
+STATIC_CHECK_TARGETS = (
+    "src",
+    "tests",
+    "scripts/generate_final_figures.py",
+    "scripts/release_smoke.py",
+)
 
 
 def _run(*args: str) -> None:
@@ -17,8 +23,8 @@ def _run(*args: str) -> None:
 
 
 def main() -> None:
-    _run("-m", "ruff", "format", "--check", "src", "tests", "scripts")
-    _run("-m", "ruff", "check", "src", "tests", "scripts")
+    _run("-m", "ruff", "format", "--check", *STATIC_CHECK_TARGETS)
+    _run("-m", "ruff", "check", *STATIC_CHECK_TARGETS)
     _run("-m", "pytest")
 
     with tempfile.TemporaryDirectory(prefix="orderflow-mm-release-") as temporary:

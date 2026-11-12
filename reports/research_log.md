@@ -408,3 +408,11 @@ The complete repository history and release tags were migrated to
 `https://github.com/Chen-xi111/orderflow-mm`. Repository-facing CI links now use the new canonical
 location. The previous `SJP114/orderflow-mm` remote is retained as a historical backup; it is no
 longer the default push target. No research data, results, or claims changed during the migration.
+
+## 2026-11-12 — Local workspace hygiene release
+
+Release-smoke static checks now enumerate the tracked research source, tests, and two release
+scripts instead of recursively scanning unrelated application-preparation scripts stored beside
+the repository. Explicit ignore rules keep local resume, tracker, interview, and Codex runtime
+artifacts outside Git status and source distributions. No research implementation, frozen evidence,
+or acceptance claim changed. Package version advanced to 0.2.1 for this release-engineering fix.
